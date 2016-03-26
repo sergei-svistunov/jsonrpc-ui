@@ -1,0 +1,77 @@
+.jsonrpc_scheme-method-container {
+    max-width: 960px;
+    background-color: #ebf3f9;
+    border: 1px solid #c3d9ec;
+    border-top: none;
+    margin: 0 0 10px;
+    padding: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+.jsonrpc_scheme-method-header {
+    background-color: #e7f0f7;
+    border: 1px solid #c3d9ec;
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.jsonrpc_scheme-method-name {
+    float: left;
+    background-color: #0f6ab4;
+    border-radius: 2px;
+    color: white;
+    display: inline-block;
+    padding: 2px 10px;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+.jsonrpc_scheme-method-caption {
+    float: right;
+    color: #0f6ab4;
+    font-size: 0.9em;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+
+.jsonrpc_scheme-method-description {
+    padding: 10px;
+}
+
+.jsonrpc_scheme-method-description-text {
+    display: block;
+}
+
+.jsonrpc_scheme-method-errors {
+
+}
+
+.jsonrpc_scheme-method-request {
+    padding: 0 5px;
+    overflow: hidden;
+}
+
+.jsonrpc_scheme-method-request > table {
+    width: 100%;
+}
+
+.jsonrpc_scheme-method-request > table  td {
+    padding-right: 15px;
+}
+
+.jsonrpc_scheme-method-errors-caption, .jsonrpc_scheme-method-request-caption {
+    color: #0f6ab4;
+    font-size: 1.1em;
+    font-weight: 400;
+    font-family: sans-serif;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    display: block;
+}
+
+.jsonrpc_scheme-method-request-params, .jsonrpc_scheme-method-request-scheme {
+    width: 100%;
+    height: 300px;
+}

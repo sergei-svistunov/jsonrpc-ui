@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test JSON RPC UI</title>
+    <link href="jsonrpc_ui.css" rel="stylesheet" type="text/css">
+    <script src="libs/jquery-1.8.0.min.js"></script>
+    <script src="jsonrpc_ui.js"></script>
+    <script type="application/javascript">
+        $(function() {
+            var ui = new JSONRPCUI({
+                schemeUrl: 'http://localhost:8080/jsonrpc_scheme.json'
+            });
+            ui.draw('#container');
+        });
+    </script>
+</head>
+<body>
+    <div id="container" style="margin: auto; max-width: 960px;"></div>
+</body>
+</html>
