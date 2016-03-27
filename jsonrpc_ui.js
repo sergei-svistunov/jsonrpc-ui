@@ -13,6 +13,8 @@ function JSONRPCUI(opts) {
         $.get(opts.schemeUrl).success(function(data) {
             var html = '';
 
+            that.apiUrl = data.api_url || that.opts.apiUrl || '/';
+
             data.methods.forEach(function(method) {
                 html += '<div class="jsonrpc_scheme-method-container">';
                 html += '  <div class="jsonrpc_scheme-method-header">';
@@ -48,17 +50,39 @@ function JSONRPCUI(opts) {
                 html += '      </tr>';
                 html += '      <tr>';
                 html += '        <td><textarea class="jsonrpc_scheme-method-request-params"></textarea></td>';
-                html += '        <td><textarea class="jsonrpc_scheme-method-request-scheme">' + that._schemeToHtml(method.params, '') + '</textarea></td>';
+                html += '        <td><textarea class="jsonrpc_scheme-method-request-scheme" readonly="readonly">' + that._schemeToHtml(method.params, '') + '</textarea></td>';
                 html += '      </tr>';
                 html += '    </table>';
-
-                html += '    <button onclick="">Try</button>';
-
+                html += '    <button data-method="' + escapeHtml(method.name) + '">Try it out!</button>';
                 html += '  </div>';
+
+                html += '  <div class="jsonrpc_scheme-method-response" style="display: none;">';
+                html += '    <span class="jsonrpc_scheme-method-response-caption">Response</span>';
+                html += '    <div class="jsonrpc_scheme-method-response-data"></div>';
+                html += '  </div>';
+
                 html += '</div>';
             })
 
             container.html(html);
+            container.find('button').on('click', function() {
+                var container = $(this).parents('.jsonrpc_scheme-method-container');
+                var json;
+                try {
+                    json = $.parseJSON(container.find('.jsonrpc_scheme-method-request-params')[0].value);
+                } catch (e) {
+                    alert(e.toString());
+                }
+
+                that._call($(this).data('method'), json, function(data, status, xhr) {
+                    container.find('.jsonrpc_scheme-method-response').show();
+                    if (status == "success") {
+                        if (data.result) {
+                            container.find('.jsonrpc_scheme-method-response-data').text(JSON.stringify(data.result, null, "    "));
+                        }
+                    }
+                });
+            });
         });
     };
 
@@ -90,6 +114,23 @@ function JSONRPCUI(opts) {
 
         return html;
     };
+
+    this._call = function(method, params, callback) {
+        $.ajax({
+            type: 'POST',
+            url: this.apiUrl,
+            dataType: 'json',
+            contentType: "application/json-rpc",
+            crossDomain: true,
+            cache : false,
+            data: JSON.stringify({
+                "jsonrpc": '2.0',
+                "method": method,
+                "params": params,
+                "id": 1
+            }),
+        }).always(callback);
+    }
 }
 
 function escapeHtml(string) {

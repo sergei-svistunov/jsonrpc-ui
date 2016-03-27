@@ -9,7 +9,8 @@
     <script type="application/javascript">
         $(function() {
             var ui = new JSONRPCUI({
-                schemeUrl: 'http://localhost:8080/jsonrpc_scheme.json'
+                schemeUrl: 'http://localhost:8080/jsonrpc_scheme.json',
+                apiUrl: 'http://localhost:8080/jsonrpc'
             });
             ui.draw('#container');
         });
